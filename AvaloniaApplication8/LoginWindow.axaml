@@ -1,0 +1,20 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="AvaloniaApplication8.LoginWindow"
+        Title="Вход" Width="350" Height="280"
+        WindowStartupLocation="CenterScreen">
+    <Grid Margin="20" RowDefinitions="Auto,*,Auto">
+        <TextBlock Grid.Row="0" Text="Авторизация" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,20"/>
+        
+        <StackPanel Grid.Row="1" Spacing="10" VerticalAlignment="Center">
+            <TextBox x:Name="UsernameBox" Watermark="Имя пользователя"/>
+            <TextBox x:Name="PasswordBox" Watermark="Пароль" PasswordChar="*"/>
+            <TextBlock x:Name="ErrorText" Foreground="Red" IsVisible="False" TextAlignment="Center"/>
+        </StackPanel>
+        
+        <StackPanel Grid.Row="2" Spacing="10" Margin="0,20,0,0">
+            <Button Content="Войти" Click="Login_Click" IsDefault="True"/>
+            <Button Content="Регистрация" Click="Register_Click"/>
+        </StackPanel>
+    </Grid>
+</Window> 

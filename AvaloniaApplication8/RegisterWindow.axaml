@@ -1,0 +1,26 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="AvaloniaApplication8.RegisterWindow"
+        Title="RegisterWindow" FontFamily="TimesNewRoman" FontSize="14">
+        <Grid RowDefinitions="*,*,*,*" ShowGridLines="True">
+                <TextBlock Grid.Row="0" FontSize="26" Text="Регистация" HorizontalAlignment="Center"></TextBlock>
+                <StackPanel  Grid.Row="1">
+                <TextBlock HorizontalAlignment="Center" Text="Имя"></TextBlock>
+                <TextBox Width="150" Name="Box"></TextBox>
+                </StackPanel>
+                <StackPanel  Grid.Row="2">
+                        <TextBlock HorizontalAlignment="Center" Text="mail"></TextBlock>
+                        <TextBox Width="150" Name="Box2"></TextBox>
+                </StackPanel>
+                <StackPanel  Grid.Row="3">
+                        <TextBlock HorizontalAlignment="Center" Text="пароль"></TextBlock>
+                        <TextBox Width="150" Name="Box3"></TextBox>
+                </StackPanel>
+                <Button Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Bottom" VerticalContentAlignment="Center" Height="30" Width="70" Content="Создать" Click="Button_OnClick"></Button>
+                <Button Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Bottom" VerticalContentAlignment="Center" Height="30" Width="70" Content="Выход" Click="Button_OnClick1"></Button>
+                <TextBlock Grid.Row="0" Name="error" Foreground="Red" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+        </Grid>
+</Window>
