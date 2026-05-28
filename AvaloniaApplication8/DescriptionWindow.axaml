@@ -1,0 +1,15 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="AvaloniaApplication8.DescriptionWindow"
+        Title="DescriptionWindow" MaxHeight="300" MaxWidth="400">
+        <Grid RowDefinitions="*,*,*">
+                <TextBlock Grid.Row="0" FontSize="20" VerticalAlignment="Top" Margin="0,30,0,0" HorizontalAlignment="Center" Text="Описание задания"></TextBlock>
+                <TextBox Grid.Row="1" Name="Box" Height="100" Width="350"></TextBox>
+                <TextBlock Name="err" Foreground="Red"></TextBlock>
+                <Button VerticalAlignment="Bottom" Grid.Row="2" Content="Выйти" Click="Button_OnClick"></Button>
+                <Button Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Bottom" Content="Сохранить" Click="Button_OnClick2"></Button>
+        </Grid>
+</Window>

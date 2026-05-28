@@ -6,20 +6,24 @@
         xmlns:local="clr-namespace:AvaloniaApplication8">
     <Grid Margin="20" RowDefinitions="Auto,*">
         <StackPanel Grid.Row="0" Spacing="10" Margin="0,0,0,15">
-            <TextBlock Text="Добавить задание" FontSize="20" FontWeight="Bold"/>
-            <Grid ColumnDefinitions="*,140,100,100" ColumnSpacing="10">
+            <StackPanel Orientation="Horizontal">
+                <Button Content="Выход" Margin="0,0,30,0" Click="Button_OnClick"></Button>
+                <TextBlock Text="Добавить задание" FontSize="20" FontWeight="Bold"/>
+            </StackPanel>
+            <Grid ColumnDefinitions="*, 100,140,100,100" ColumnSpacing="10">
                 <TextBox x:Name="TitleBox" Grid.Column="0" Watermark="Название"/>
-                <DatePicker x:Name="DeadlinePicker" Grid.Column="1"/>
-                <ComboBox x:Name="PriorityBox" Grid.Column="2" SelectedIndex="1">
+                <ComboBox Grid.Column="1" HorizontalAlignment="Center" x:Name="Box" SelectedIndex="1"></ComboBox>
+                <DatePicker x:Name="DeadlinePicker" Grid.Column="2"/>
+                <ComboBox x:Name="PriorityBox" Grid.Column="3" SelectedIndex="1">
                     <x:String>Low</x:String>
                     <x:String>Medium</x:String>
                     <x:String>High</x:String>
                 </ComboBox>
-                <Button Grid.Column="3" Content="Добавить" Click="AddTask_Click" IsDefault="True"/>
+                <Button Grid.Column="4" Content="Добавить" Click="AddTask_Click" IsDefault="True"/>
             </Grid>
         </StackPanel>
         
-        <ListBox x:Name="TaskList" Grid.Row="1" BorderBrush="#CCCCCC" BorderThickness="1" Padding="6">
+        <ListBox x:Name="TaskList" Grid.Row="1" BorderBrush="#CCCCCC" BorderThickness="1" Padding="6" DoubleTapped="TaskList_OnDoubleTapped" SelectionMode="Single">
             <ListBox.ItemTemplate>
                 <DataTemplate x:DataType="local:TaskItemViewModel">
                     <Grid ColumnDefinitions="*,120,80, *" ColumnSpacing="15">
@@ -28,9 +32,9 @@
                                  FontSize="14"
                                  Checked="TaskCheckBox_Changed"
                                  Unchecked="TaskCheckBox_Changed"/>
-                        <TextBlock Grid.Column="1" Text="{Binding Deadline, StringFormat={}{0:dd.MM HH:mm}}" 
+                        <TextBlock Grid.Column="1" Text="{Binding Category}" Foreground="Gray" VerticalAlignment="Center"></TextBlock>
+                        <TextBlock Grid.Column="2" Text="{Binding Deadline}" 
                                   Foreground="Gray" VerticalAlignment="Center"/>
-                        <TextBlock Grid.Column="2" Text="{Binding Description}" Foreground="Gray" VerticalAlignment="Center"></TextBlock>
                         <TextBlock Grid.Column="3" Text="{Binding Priority}" 
                                   FontSize="12" Foreground="Gray" 
                                   HorizontalAlignment="Right" VerticalAlignment="Center"/>

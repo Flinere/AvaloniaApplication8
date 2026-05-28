@@ -2,8 +2,14 @@ using Avalonia.Controls;
 using Avalonia.Interactivity;
 using AvaloniaApplication8.Context;
 using System;
+using System.Collections;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
+using Avalonia.Input;
+using AvaloniaApplication8.Models;
+using Microsoft.EntityFrameworkCore;
+using Task = AvaloniaApplication8.Models.Task;
 
 namespace AvaloniaApplication8
 {
@@ -26,28 +32,30 @@ namespace AvaloniaApplication8
             LoadTasks();
         }
 
-        private void LoadTasks()
+        private async void LoadTasks()
         {
             Tasks.Clear();
-            var dbTasks = _context.Tasks
+            var dbTasks =  _context.Tasks
                 .Where(t => t.UserId == _userId)
-                .OrderByDescending(t => t.Deadline)
+                .OrderByDescending(t => t.Deadline).Include(tas => tas.Category)
                 .ToList();
 
             foreach (var task in dbTasks)
             {
                 var deadline = task.Deadline ?? DateTime.UtcNow;
-                
                 Tasks.Add(new TaskItemViewModel
                 {
                     Id = task.Id,
                     Title = task.Title,
-                    Description = task.Description,
+                    Category = task.Category?.Name ?? "no category",
                     Deadline = deadline,
                     Priority = task.Priority,
                     IsCompleted = task.Status == "completed"
                 });
             }
+
+            var categoryNames = _context.Categories.Select(c => c.Name).ToList();
+            Box.ItemsSource = categoryNames;
         }
 
         private void AddTask_Click(object? sender, RoutedEventArgs e)
@@ -60,12 +68,14 @@ namespace AvaloniaApplication8
                 : DateTime.UtcNow.AddDays(1);
             
             var priority = PriorityBox.SelectedItem?.ToString() ?? "Medium";
+            var categoryid = Box.SelectionBoxItem as Category;
 
             var task = new Models.Task
             {
                 UserId = _userId,
                 Title = title,
-                Description = "",
+                Description = "Пустое описаниe",
+                CategoryId = categoryid?.Id ?? 1,
                 Deadline = deadline,
                 Priority = priority.ToLower(),
                 Status = "pending",
@@ -89,12 +99,26 @@ namespace AvaloniaApplication8
                 var task = _context.Tasks.Find(taskVm.Id);
                 if (task != null)
                 {
-                    task.Status = taskVm.IsCompleted ? "completed" : "pending";
+                    task.Status = taskVm.IsCompleted ? "pending" : "completed";
                     task.CompletedAt = taskVm.IsCompleted ? DateTime.UtcNow : null;
                     task.UpdatedAt = DateTime.UtcNow;
                     _context.SaveChanges();
                 }
             }
+        }
+
+        private void TaskList_OnDoubleTapped(object? sender, TappedEventArgs e)
+        {
+            PostgresContext dbContext = new PostgresContext();
+            var task = TaskList.SelectedItem as TaskItemViewModel;
+            int taskid = task.Id;
+            new DescriptionWindow(taskid).ShowDialog(this);
+        }
+
+        private void Button_OnClick(object? sender, RoutedEventArgs e)
+        {
+            new LoginWindow().Show();
+            this.Close();
         }
     }
 
@@ -102,7 +126,7 @@ namespace AvaloniaApplication8
     {
         public int Id { get; set; }
         public string Title { get; set; } = string.Empty;
-        public string Description { get; set; } = string.Empty;
+        public string? Category{get;set;}
         public DateTime Deadline { get; set; }
         public string Priority { get; set; } = "Medium";
         public bool IsCompleted { get; set; }

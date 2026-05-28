@@ -169,3 +169,4 @@ C:\Users\sekibanki\RiderProjects\AvaloniaApplication8\AvaloniaApplication8\obj\D
 C:\Users\sekibanki\RiderProjects\AvaloniaApplication8\AvaloniaApplication8\obj\Debug\net9.0\AvaloniaApplication8.pdb
 C:\Users\sekibanki\RiderProjects\AvaloniaApplication8\AvaloniaApplication8\obj\Debug\net9.0\AvaloniaApplication8.genruntimeconfig.cache
 C:\Users\sekibanki\RiderProjects\AvaloniaApplication8\AvaloniaApplication8\obj\Debug\net9.0\ref\AvaloniaApplication8.dll
+C:\Users\sekibanki\RiderProjects\AvaloniaApplication8\AvaloniaApplication8\obj\Debug\net9.0\AvaloniaApplication8.sourcelink.json

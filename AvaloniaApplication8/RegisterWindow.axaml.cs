@@ -35,8 +35,10 @@ public partial class RegisterWindow : Window
             error.Text = "Имя не может быть больше 50";
             return;
         }
-        string pattern = "[.\\-_a-z0-9]+@([a-z0-9][\\-a-z0-9]+\\.)+[a-z]{2,6}";
-        Match isMatch = Regex.Match(Box2.Text, pattern, RegexOptions.IgnoreCase);
+
+        password = password.Replace(" ", "");
+        string pattern2 = "[.\\-_a-z0-9]+@([a-z0-9][\\-a-z0-9]+\\.)+[a-z]{2,6}";
+        Match isMatch = Regex.Match(Box2.Text, pattern2, RegexOptions.IgnoreCase);
         if (!isMatch.Success)
         {
             error.Text = "Почта не правильной формы";

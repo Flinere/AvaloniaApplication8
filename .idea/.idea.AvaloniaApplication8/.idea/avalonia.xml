@@ -4,6 +4,7 @@
     <option name="projectPerEditor">
       <map>
         <entry key="AvaloniaApplication8/App.axaml" value="AvaloniaApplication8/AvaloniaApplication8.csproj" />
+        <entry key="AvaloniaApplication8/DescriptionWindow.axaml" value="AvaloniaApplication8/AvaloniaApplication8.csproj" />
         <entry key="AvaloniaApplication8/LoginWindow.axaml" value="AvaloniaApplication8/AvaloniaApplication8.csproj" />
         <entry key="AvaloniaApplication8/MainWindow.axaml" value="AvaloniaApplication8/AvaloniaApplication8.csproj" />
         <entry key="AvaloniaApplication8/RegisterWindow.axaml" value="AvaloniaApplication8/AvaloniaApplication8.csproj" />
