@@ -7,18 +7,21 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Avalonia.Input;
+using Avalonia.Media;
 using AvaloniaApplication8.Models;
 using Microsoft.EntityFrameworkCore;
 using Task = AvaloniaApplication8.Models.Task;
+using System.ComponentModel;
 
 namespace AvaloniaApplication8
 {
+    
     public partial class MainWindow : Window
     {
         private readonly PostgresContext _context;
         private readonly int _userId;
-        public ObservableCollection<TaskItemViewModel> Tasks { get; } = new();
-
+         public ObservableCollection<TaskItemViewModel> Tasks { get; } = new();
+         
         public MainWindow()
         {
             InitializeComponent();
@@ -43,6 +46,7 @@ namespace AvaloniaApplication8
             foreach (var task in dbTasks)
             {
                 var deadline = task.Deadline ?? DateTime.UtcNow;
+                bool ready = deadline < DateTime.UtcNow;
                 Tasks.Add(new TaskItemViewModel
                 {
                     Id = task.Id,
@@ -50,7 +54,8 @@ namespace AvaloniaApplication8
                     Category = task.Category?.Name ?? "no category",
                     Deadline = deadline,
                     Priority = task.Priority,
-                    IsCompleted = task.Status == "completed"
+                    IsCompleted = task.Status == "completed",
+                    ItemBack = ready? new SolidColorBrush(Colors.Red) : Brushes.Transparent,
                 });
             }
 
@@ -120,10 +125,28 @@ namespace AvaloniaApplication8
             new LoginWindow().Show();
             this.Close();
         }
+
+        private async void Button_OnClick2(object? sender, RoutedEventArgs e)
+        {
+            var task = TaskList.SelectedItem as TaskItemViewModel;
+            if (TaskList.SelectedItem == null)
+            {
+                return;
+            }
+            int id = task.Id;
+            var del =  await _context.Tasks.FindAsync(id);
+            if (del != null)
+            {
+                _context.Tasks.Remove(del);
+                await _context.SaveChangesAsync();
+                LoadTasks();
+            }
+        }
     }
 
     public class TaskItemViewModel
     {
+        public IBrush ItemBack { get; set; } = Brushes.Transparent;
         public int Id { get; set; }
         public string Title { get; set; } = string.Empty;
         public string? Category{get;set;}

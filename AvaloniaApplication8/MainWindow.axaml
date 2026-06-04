@@ -9,6 +9,7 @@
             <StackPanel Orientation="Horizontal">
                 <Button Content="Выход" Margin="0,0,30,0" Click="Button_OnClick"></Button>
                 <TextBlock Text="Добавить задание" FontSize="20" FontWeight="Bold"/>
+                <Button Content="Удалить" Margin="281,0,0,0" Width="86" HorizontalContentAlignment="Center" Click="Button_OnClick2"></Button>
             </StackPanel>
             <Grid ColumnDefinitions="*, 100,140,100,100" ColumnSpacing="10">
                 <TextBox x:Name="TitleBox" Grid.Column="0" Watermark="Название"/>
@@ -23,15 +24,16 @@
             </Grid>
         </StackPanel>
         
-        <ListBox x:Name="TaskList" Grid.Row="1" BorderBrush="#CCCCCC" BorderThickness="1" Padding="6" DoubleTapped="TaskList_OnDoubleTapped" SelectionMode="Single">
+        <ListBox x:Name="TaskList" Grid.Row="1" BorderBrush="#CCCCCC" BorderThickness="1" Padding="6" DoubleTapped="TaskList_OnDoubleTapped" SelectionMode="Single" >
             <ListBox.ItemTemplate>
                 <DataTemplate x:DataType="local:TaskItemViewModel">
+                    <Border Name="Border" BorderBrush="{Binding ItemBack}">
                     <Grid ColumnDefinitions="*,120,80, *" ColumnSpacing="15">
                         <CheckBox Grid.Column="0" Content="{Binding Title}" 
-                                 IsChecked="{Binding IsCompleted}" 
-                                 FontSize="14"
-                                 Checked="TaskCheckBox_Changed"
-                                 Unchecked="TaskCheckBox_Changed"/>
+                                  IsChecked="{Binding IsCompleted}" 
+                                  FontSize="14"
+                                  Checked="TaskCheckBox_Changed"
+                                  Unchecked="TaskCheckBox_Changed"/>
                         <TextBlock Grid.Column="1" Text="{Binding Category}" Foreground="Gray" VerticalAlignment="Center"></TextBlock>
                         <TextBlock Grid.Column="2" Text="{Binding Deadline}" 
                                   Foreground="Gray" VerticalAlignment="Center"/>
@@ -39,6 +41,7 @@
                                   FontSize="12" Foreground="Gray" 
                                   HorizontalAlignment="Right" VerticalAlignment="Center"/>
                     </Grid>
+                    </Border>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
